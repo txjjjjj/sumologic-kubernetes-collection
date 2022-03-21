@@ -1,0 +1,42 @@
+---
+# create namespace avalanche
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: avalanche
+spec:
+  finalizers:
+  - kubernetes
+---
+# create deployment avalanche
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avalanche
+  namespace: avalanche
+  labels:
+    name: avalanche
+spec:
+  selector:
+    matchLabels:
+      app: avalanche
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template:
+    metadata:
+      labels:
+        app: avalanche
+    spec:
+      containers:
+      - name: avalanche
+        image: quay.io/freshtracks.io/avalanche
+        args:
+        - --metric-count=20
+        - --label-count=20
+        - --series-count=100
+        - --value-interval=30
+        - --remote-url=http://collection-sumologic-remote-write-proxy.sumologic.svc.cluster.local:9888/prometheus.metrics.container
+        - --remote-requests-count=36000
+        - --remote-write-interval=1000ms
+        - --remote-batch-size=2000
+
+

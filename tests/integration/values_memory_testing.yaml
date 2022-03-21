@@ -1,0 +1,70 @@
+sumologic:
+  logs:
+    enabled: false
+
+  metrics:
+    metadata:
+      provider: otelcol
+    remoteWriteProxy:
+      enabled: true
+      replicaCount: 1
+
+# We're using otelcol instead
+fluent-bit:
+  enabled: false
+
+fluentd:
+  events:
+    enabled: false
+
+# Request less resources so that this fits on Github actions runners environment
+metadata:
+  persistence:
+    size: 128Mi
+  image:
+    repository: localhost:5001/sumologic-otel-collector-dev
+    tag: latest
+    # tag: 0.0.50-beta.0
+    pullPolicy: Always
+  metrics:
+    statefulset:
+      replicaCount: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 4000m
+          memory: 2Gi
+    config:
+      exporters:
+        logging:
+          logLevel: info
+      extensions:
+        memory_ballast:
+          size_in_percentage: 10
+      processors:
+        memory_limiter:
+          limit_percentage: 80
+          spike_limit_percentage: 20
+          limit_mib: 0
+          check_interval: 1s
+      service:
+        # telemetry:
+        #   logs:
+        #     level: DEBUG
+        extensions:
+          - health_check
+          - file_storage
+          - memory_ballast
+          - pprof
+
+kube-prometheus-stack:
+  fullnameOverride: collection
+  prometheus:
+    prometheusSpec:
+      resources:
+        requests:
+          cpu: 250m
+          memory: 128Mi
+      remoteWrite: []
