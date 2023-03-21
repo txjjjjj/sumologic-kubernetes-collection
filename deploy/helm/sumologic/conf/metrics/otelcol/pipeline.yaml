@@ -1,5 +1,6 @@
 exporters:
   - sumologic/default
+{{- if eq .Values.sumologic.metrics.sourceType "http" }}
   - sumologic/apiserver
   - sumologic/control_plane
   - sumologic/controller
@@ -7,6 +8,7 @@ exporters:
   - sumologic/node
   - sumologic/scheduler
   - sumologic/state
+{{- end }}
 processors:
   - memory_limiter
   - metricstransform
@@ -27,7 +29,9 @@ processors:
   - transform/remove_name
   - batch
   - transform/prepare_routing
+{{- if eq .Values.sumologic.metrics.sourceType "http" }}
   - routing
+{{- end }}
 receivers:
   - telegraf
   - otlp

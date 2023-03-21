@@ -5,12 +5,15 @@ package integration
 
 import (
 	"testing"
+
+	"github.com/SumoLogic/sumologic-kubernetes-collection/tests/integration/internal"
 )
 
 func Test_Helm_OTLP(t *testing.T) {
 
+	expectedMetrics := internal.DefaultExpectedMetrics
 	installChecks := []featureCheck{
-		CheckSumologicSecret(7),
+		CheckSumologicSecret(15),
 		CheckOtelcolMetadataLogsInstall,
 		CheckOtelcolLogsCollectorInstall,
 		CheckOtelcolEventsInstall,
@@ -20,9 +23,11 @@ func Test_Helm_OTLP(t *testing.T) {
 
 	featLogs := GetLogsFeature()
 
+	featMetrics := GetMetricsFeature(expectedMetrics, Prometheus)
+
 	featTraces := GetTracesFeature()
 
 	featEvents := GetEventsFeature()
 
-	testenv.Test(t, featInstall, featLogs, featEvents, featTraces)
+	testenv.Test(t, featInstall, featLogs, featMetrics, featEvents, featTraces)
 }
