@@ -486,6 +486,12 @@ sumologic:
           fsGroup: 999
         tolerations: []
 
+        ## Enable collection of kubelet metrics.
+        enableKubeletMetrics: true
+
+        ## Enable collection of cAdvisor metrics.
+        enablecAdvisorMetrics: true
+
     otelcol:
       ## Includes additional processors into pipelines.
       ## It can be used for filtering metrics, renaming, changing metadata and so on.
