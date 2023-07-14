@@ -12,10 +12,15 @@ sumologic:
     collector:
       otelcol:
         enabled: true
+        scrapeInterval: 15s
         resources:
           requests:
             memory: 128Mi
             cpu: 50m
+        kubelet:
+          enabled: false
+        cAdvisor:
+          enabled: false
 
 kube-prometheus-stack:
   prometheus:

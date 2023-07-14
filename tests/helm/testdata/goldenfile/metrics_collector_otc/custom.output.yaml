@@ -29,6 +29,7 @@ spec:
     enabled: true
     prometheusCR:
       enabled: true
+      scrapeInterval: 60s
       serviceMonitorSelector:
         smkey: smvalue
       podMonitorSelector:
@@ -120,7 +121,7 @@ spec:
       prometheus:
         config:
           global:
-            scrape_interval: 30s
+            scrape_interval: 60s
           ## As of right now, if scrape_configs is empty, it needs to be an empty list, otherwise otel-operator rejects it
           scrape_configs: []
         target_allocator:

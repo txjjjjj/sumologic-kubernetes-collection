@@ -43,7 +43,7 @@ receivers:
   prometheus:
     config:
       global:
-        scrape_interval: 30s
+        scrape_interval: {{ .Values.sumologic.metrics.collector.otelcol.scrapeInterval }}
       ## As of right now, if scrape_configs is empty, it needs to be an empty list, otherwise otel-operator rejects it
       scrape_configs: {{ not (or .Values.sumologic.metrics.collector.otelcol.kubelet.enabled .Values.sumologic.metrics.collector.otelcol.cAdvisor.enabled) | ternary "[]" "" }}
 {{- if .Values.sumologic.metrics.collector.otelcol.kubelet.enabled }}
