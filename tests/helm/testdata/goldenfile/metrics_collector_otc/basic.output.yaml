@@ -21,6 +21,7 @@ spec:
     enabled: true
     prometheusCR:
       enabled: true
+      scrape_interval: 30s
       serviceMonitorSelector: {}
       podMonitorSelector: {}
   env:
