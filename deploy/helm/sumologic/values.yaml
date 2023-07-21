@@ -4750,6 +4750,11 @@ opentelemetry-operator:
     collectorImage:
       repository: "public.ecr.aws/sumologic/sumologic-otel-collector"
       tag: "0.81.0-sumo-0"
+    image:
+      tag: main
+    targetAllocatorImage:
+      repository: ghcr.io/open-telemetry/opentelemetry-operator/target-allocator
+      tag: main
     env:
     resources:
       limits:
