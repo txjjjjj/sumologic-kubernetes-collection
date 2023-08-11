@@ -1,0 +1,1 @@
+fix(logs): don't add timestamp attribute if format is text
