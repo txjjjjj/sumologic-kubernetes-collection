@@ -4,7 +4,6 @@
 package integration
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/SumoLogic/sumologic-kubernetes-collection/tests/integration/internal"
@@ -38,11 +37,6 @@ func Test_Helm_OT_Metrics(t *testing.T) {
 	}
 	for _, metrics := range expectedMetricsGroups {
 		for _, metric := range metrics {
-			if strings.HasPrefix(metric, "apiserver_request_duration_seconds") ||
-				strings.HasPrefix(metric, "coredns_dns_request_duration_seconds") ||
-				strings.HasPrefix(metric, "kubelet_runtime_operations_duration_seconds") {
-				continue
-			}
 			expectedMetrics = append(expectedMetrics, metric)
 		}
 	}
