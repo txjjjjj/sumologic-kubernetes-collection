@@ -27,6 +27,11 @@ format. Please check [Solution Overview][solution-overview] and see below for de
 
 [solution-overview]: /docs/README.md#solution-overview
 
+### Drop Prometheus recording rule metrics
+
+OpenTelemetry can't collect Prometheus recording rule metrics. The new version therefore stops collecting recording rule metrics and updates
+will be made to the Kubernetes App to remove these metrics.
+
 ## How to upgrade
 
 ### Requirements
@@ -66,4 +71,7 @@ require additional action.
 
 ## Full list of changes
 
-:construction:
+- Drop Prometheus recording rule metrics
+
+  OpenTelemetry can't collect Prometheus recording rule metrics. The new version therefore stops collecting recording rule metrics and
+  updates will be made to the Kubernetes App to not show these metrics.
